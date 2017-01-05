@@ -4,15 +4,14 @@ import Botkit = require('botkit');
 dotenv.config();
 import async = require('async');
 import { BotListener } from "./commands/BotListener";
-
-var restarts = 0;
-var startedOn = Date.now();
-var timeRestarted;
+import { Analysis } from "./commands/Analysis";
 
 var controller = Botkit.slackbot({
   debug: false,
   log: false
 });
+
+var analysis = new Analysis(controller);
 
 var spawnBot = controller.spawn({
   token: process.env.SLACK_TOKEN,
@@ -30,8 +29,9 @@ function start_rtm(spawnBot) {
           stats_optout: true
         });
 
-        ++restarts;
-        timeRestarted = Date.now();
+        analysis.incrementRestarts();
+        analysis.setRestartToNow();
+
         start_rtm(spawnBot);
       }, 30000);
       return;
@@ -48,63 +48,27 @@ function start_rtm(spawnBot) {
 // restart slackbot if broken
 controller.on('rtm_close', function(bot, err) {
   if (err) {
-    console.log("Error while restart bot", err);
+    console.log("Error while restarting bot", err);
     spawnBot = controller.spawn({
       token: process.env.SLACK_TOKEN,
       stats_optout: true
     });
 
-    ++restarts;
-    timeRestarted = Date.now();
-    start_rtm(this.spawnBot);
+    analysis.incrementRestarts();
+    analysis.setRestartToNow();
+
+    start_rtm(spawnBot);
     return;
   }
-  console.log("Attempting to restart rtm", ++restarts);
-  timeRestarted = Date.now();
+
+  analysis.incrementRestarts();
+  analysis.setRestartToNow();
+  console.log("Attempting to restart rtm");
 
   start_rtm(bot);
 });
 
 start_rtm(spawnBot);
-
-class Analysis implements BotListener {
-  name = "analysis";
-  desc = "Shows my analysis";
-  hidden = false;
-  channels;
-  controller;
-  constructor( controller ){
-    this.channels = ['direct_message','direct_mention','mention'];
-    this.controller = controller;
-  }
-
-  start() {
-    this.controller.hears('analysis', this.channels, function(bot,message) {
-
-      var messages =[];
-      messages.push(function(empty) {
-        bot.reply(message, getStarted())
-        empty(null);
-      });
-      messages.push( function(empty) {
-        bot.reply(message, getRestarts())
-        empty(null)
-      });
-      if (timeRestarted) {
-        messages.push(function (empty) {
-          bot.reply(message, getLastRestart())
-          empty(null)
-        });
-      }
-
-      async.series(messages, function(err, results) {
-        if(err) {
-          console.log(err);
-        }
-      });
-    });
-  }
-}
 
 controller.hears('help', ['direct_message','direct_mention','mention'], function(bot,message) {
 
@@ -118,44 +82,28 @@ controller.hears('help', ['direct_message','direct_mention','mention'], function
   commandString += "```";
 
   async.series([
-    function(empty) {
-      sendMessage(bot, message, "Here are my available commands - ");
-      empty(null);
+    function(callback) {
+      bot.reply(message, "Here are my available commands - ");
+      callback(null, 1);
     },
-    function(empty) {
-      sendMessage(bot, message, commandString)
-      empty(null)
+    function(callback) {
+      setTimeout(function() {
+        bot.reply(message, commandString);
+        callback(null, 2);
+      }, 100);
     }
   ], function(err, results) {
     if (err) console.log(err);
   });
 });
 
-
-function sendMessage(bot, message, quote) {
-  bot.reply(message, quote);
-}
-
 function padColumn(cmd, length) {
   cmd += "                ";
   return cmd.substring(0, length);
 }
 
-function getRestarts() {
-  return restarts > 0 ? "I've restarted myself " + restarts + " times." :
-  "I've never restarted. Hopefully I'll never have to.";
-}
-
-function getStarted() {
-  return "I booted up at " + startedOn + "... or you may know it better as " + new Date(startedOn).toLocaleString() + ".";
-}
-
-function getLastRestart() {
-  return  "The last time I restarted was on " + new Date(timeRestarted).toLocaleString() + ".";
-}
-
 var commands = [];
-commands.push(new Analysis(controller));
+commands.push(analysis);
 
 commands.forEach(function(command) {
   command.start();
