@@ -1,0 +1,30 @@
+{
+  "name": "timbot2",
+  "version": "0.0.1",
+  "description": "Slack bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmitim/timbot2.git"
+  },
+  "author": "tmitim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tmitim/timbot2/issues"
+  },
+  "homepage": "https://github.com/tmitim/timbot2#readme",
+  "devDependencies": {
+    "@types/node": "^6.0.57",
+    "typescript": "^2.1.4"
+  },
+  "dependencies": {
+    "async": "^2.1.4",
+    "botkit": "^0.4.7",
+    "dotenv": "^2.0.0",
+    "weather-js": "^1.0.2"
+  }
+}
