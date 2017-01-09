@@ -1,14 +1,13 @@
-import { BotListener } from "./BotListener"
+import { BotListener } from "../BotListener"
 
-class Pizza implements BotListener {
+export class Pizza implements BotListener {
   name = "pizza";
   desc = "Yum, pizza";
   hidden = true;
-  channels;
+  channels = ['direct_message','direct_mention','mention','ambient'];
   controller;
 
   constructor( controller ){
-    this.channels = ['direct_message','direct_mention','mention','ambient'];
     this.controller = controller;
   }
 

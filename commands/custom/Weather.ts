@@ -1,19 +1,21 @@
 import weather = require('weather-js');
-import { BotListener } from "./BotListener";
+import { BotListener } from "../BotListener";
 
-class Weather implements BotListener {
+export class Weather implements BotListener {
   name = "weather";
   desc = "Shows weather information";
   hidden = false;
-  channels;
+  channels = ['direct_message','direct_mention','mention'];
   controller;
+
   constructor( controller ){
-    this.channels = ['direct_message','direct_mention','mention'];
-    controller = this.controller;
+    this.controller = controller;
   }
+
   start(){
+    var weatherCommand = this;
     weather.find({search: 'Los Angeles, CA', degreeType: 'F'}, function(err, result) {
-      this.controller.hears('weather', this.channels, function(bot,message) {
+      weatherCommand.controller.hears('weather', weatherCommand.channels, function(bot,message) {
         if(err) {
           console.log(err);
         } else {

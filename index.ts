@@ -1,4 +1,3 @@
-// import {Service, Message} from "./services";
 import dotenv = require('dotenv');
 import Botkit = require('botkit');
 dotenv.config();
@@ -6,6 +5,7 @@ import async = require('async');
 import { BotListener } from "./commands/BotListener";
 import { Analysis } from "./commands/Analysis";
 import { Help } from "./commands/Help";
+const fs = require('fs');
 
 var controller = Botkit.slackbot({
   debug: false,
@@ -71,13 +71,25 @@ controller.on('rtm_close', function(bot, err) {
 
 start_rtm(spawnBot);
 
-var commands : BotListener[] = [];
-commands.push(analysis);
-var help = new Help(controller);
-help.setAvailableCommands(commands);
-commands.push(help);
+let commands : BotListener[] = [];
 
-commands.forEach(function(command) {
-  console.log(command.name);
-  command.start();
-})
+fs.readdir(__dirname + '/commands/custom/', (err, files) => {
+  // var filename : String[] = [];
+  files
+  .filter(file => file.endsWith(".js"))
+  .map(file => file.split(".")[0])
+  .forEach(file => {
+    console.log("Setting custom command...", file);
+    var custom = require('./commands/custom/' + file);
+    commands.push(new custom[file](controller));
+  });
+
+  var help = new Help(controller);
+  help.setAvailableCommands(commands);
+  commands.push(analysis);
+  commands.push(help);
+
+  commands.forEach(function(command) {
+    command.start();
+  })
+});
