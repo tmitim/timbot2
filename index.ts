@@ -81,7 +81,13 @@ fs.readdir(__dirname + '/commands/custom/', (err, files) => {
   .forEach(file => {
     console.log("Setting custom command...", file);
     var custom = require('./commands/custom/' + file);
-    commands.push(new custom[file](controller));
+    try {
+      var customCommand = new custom[file](controller);
+      commands.push(customCommand);
+    } catch (e) {
+      // skip if not a BotListener
+      console.log("Problem importing custom command...", file, e);
+    }
   });
 
   var help = new Help(controller);
