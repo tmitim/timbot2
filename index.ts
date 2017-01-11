@@ -12,7 +12,8 @@ var controller = Botkit.slackbot({
   log: false
 });
 
-var analysis = new Analysis(controller);
+var analysis = new Analysis();
+analysis.setController(controller);
 
 var spawnBot = controller.spawn({
   token: process.env.SLACK_TOKEN,
@@ -82,7 +83,8 @@ fs.readdir(__dirname + '/commands/custom/', (err, files) => {
     console.log("Setting custom command...", file);
     var custom = require('./commands/custom/' + file);
     try {
-      var customCommand = new custom[file](controller);
+      var customCommand = new custom[file]();
+      customCommand.setController(controller);
       commands.push(customCommand);
     } catch (e) {
       // skip if not a BotListener
@@ -90,7 +92,8 @@ fs.readdir(__dirname + '/commands/custom/', (err, files) => {
     }
   });
 
-  var help = new Help(controller);
+  var help = new Help();
+  help.setController(controller);
   help.setAvailableCommands(commands);
   commands.push(analysis);
   commands.push(help);

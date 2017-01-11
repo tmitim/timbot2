@@ -1,7 +1,12 @@
-export interface BotListener {
+export abstract class BotListener {
   name: String;
   desc: String;
   hidden: boolean;
   channels: String[];
-  start(): void;
+  abstract start(): void;
+  controller;
+
+  setController(controller) {
+    this.controller = controller;
+  }
 }

@@ -1,17 +1,13 @@
 import { BotListener } from "./BotListener";
 import async = require('async');
 
-export class Help implements BotListener {
+export class Help extends BotListener {
   name = "help";
   desc = "Shows this help menu";
   hidden = true;
-  channels;
-  controller;
+  channels = ['direct_message','direct_mention','mention'];
+
   private commands : BotListener[];
-  constructor( controller ){
-    this.channels = ['direct_message','direct_mention','mention'];
-    this.controller = controller;
-  }
 
   start() {
     var help = this;

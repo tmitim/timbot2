@@ -1,23 +1,16 @@
 import { BotListener } from "./BotListener";
 import async = require('async');
 
-export class Analysis implements BotListener {
+export class Analysis extends BotListener {
   name = "analysis";
   desc = "Shows my analysis";
   hidden = false;
-  channels;
+  channels = ['direct_message','direct_mention','mention'];
   controller;
 
-  private timeRestarted;
+  private timeRestarted = Date.now();
   private startedOn;
-  private restarts;
-
-  constructor( controller ){
-    this.channels = ['direct_message','direct_mention','mention'];
-    this.controller = controller;
-    this.startedOn = Date.now();
-    this.restarts = 0;
-  }
+  private restarts = 0;
 
   start() {
     var analysis = this;
