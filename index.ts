@@ -6,14 +6,16 @@ import { BotListener } from "./commands/BotListener";
 import { Analysis } from "./commands/Analysis";
 import { Help } from "./commands/Help";
 const fs = require('fs');
+import { ControllerManager } from "./commands/ControllerManager";
 
-var controller = Botkit.slackbot({
+let controller = Botkit.slackbot({
   debug: false,
   log: false
 });
 
+ControllerManager.getInstance().setController(controller);
+
 var analysis = new Analysis();
-analysis.setController(controller);
 
 var spawnBot = controller.spawn({
   token: process.env.SLACK_TOKEN,
@@ -84,7 +86,6 @@ fs.readdir(__dirname + '/commands/custom/', (err, files) => {
     var custom = require('./commands/custom/' + file);
     try {
       var customCommand = new custom[file]();
-      customCommand.setController(controller);
       commands.push(customCommand);
     } catch (e) {
       // skip if not a BotListener
@@ -93,7 +94,6 @@ fs.readdir(__dirname + '/commands/custom/', (err, files) => {
   });
 
   var help = new Help();
-  help.setController(controller);
   help.setAvailableCommands(commands);
   commands.push(analysis);
   commands.push(help);

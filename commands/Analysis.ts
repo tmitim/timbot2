@@ -6,17 +6,14 @@ export class Analysis extends BotListener {
   desc = "Shows my analysis";
   hidden = false;
   channels = ['direct_message','direct_mention','mention'];
-  controller;
 
-  private timeRestarted = Date.now();
-  private startedOn;
+  private timeRestarted;
+  private startedOn = Date.now();
   private restarts = 0;
 
   start() {
     var analysis = this;
     analysis.controller.hears('analysis', analysis.channels, function(bot,message) {
-
-      console.log("started", analysis.getStarted());
 
       var messages =[];
       messages.push(function(callback) {
