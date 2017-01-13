@@ -2,10 +2,10 @@
   "name": "timbot2",
   "version": "0.0.1",
   "description": "Slack bot",
-  "main": "index.js",
+  "main": "./lib/timbot2.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node ./bin/timbot2",
+    "compile": "tsc"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,11 @@
     "async": "^2.1.4",
     "botkit": "^0.4.7",
     "dotenv": "^2.0.0",
+    "optimist": "^0.6.1",
     "weather-js": "^1.0.2"
+  },
+  "preferGlobal": "true",
+  "bin": {
+    "timbot2": "./bin/timbot2"
   }
 }

@@ -1,4 +1,4 @@
-import {ControllerManager} from "./ControllerManager";
+import {ControllerManager} from "./commands/ControllerManager";
 
 export abstract class BotListener {
   name: String;

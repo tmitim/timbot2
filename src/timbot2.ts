@@ -1,10 +1,11 @@
+'use strict'
 import dotenv = require('dotenv');
 import Botkit = require('botkit');
 dotenv.config();
 import async = require('async');
-import { BotListener } from "./commands/BotListener";
 import { Analysis } from "./commands/Analysis";
 import { Help } from "./commands/Help";
+import { BotListener } from "./BotListener";
 const fs = require('fs');
 import { ControllerManager } from "./commands/ControllerManager";
 
@@ -17,6 +18,9 @@ ControllerManager.getInstance().setController(controller);
 
 var analysis = new Analysis();
 
+if (!process.env.SLACK_TOKEN) {
+  throw new Error("no slack token");
+}
 var spawnBot = controller.spawn({
   token: process.env.SLACK_TOKEN,
   stats_optout: true
@@ -40,7 +44,7 @@ function start_rtm(spawnBot) {
       }, 30000);
       return;
     }
-
+    //
     // // for debugging
     // setTimeout(function() {
     //   console.log("closing bot...");
@@ -77,7 +81,6 @@ start_rtm(spawnBot);
 let commands : BotListener[] = [];
 
 fs.readdir(__dirname + '/commands/custom/', (err, files) => {
-  // var filename : String[] = [];
   files
   .filter(file => file.endsWith(".js"))
   .map(file => file.split(".")[0])

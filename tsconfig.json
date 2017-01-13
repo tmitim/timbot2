@@ -1,14 +1,18 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
-        "noImplicitAny": false,
-        "sourceMap": false,
-        "types": [
-            "node"
-         ],
-         "typeRoots": [
-            "../node_modules/@types"
-         ]
-    }
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noEmitOnError": true,
+    "sourceMap": false,
+    "types": [
+      "node"
+     ],
+     "typeRoots": [
+      "../node_modules/@types"
+     ],
+     "declaration": true,
+     "outDir": "./lib"
+  }
 }
