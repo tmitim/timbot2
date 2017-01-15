@@ -1,6 +1,6 @@
 {
   "name": "timbot2",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Slack bot",
   "main": "./lib/timbot2.js",
   "scripts": {

@@ -2,6 +2,4 @@
 
 'use strict';
 
-console.log("got here2");
-
 require('../lib/timbot2.js')

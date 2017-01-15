@@ -19,8 +19,10 @@ ControllerManager.getInstance().setController(controller);
 var analysis = new Analysis();
 
 if (!process.env.SLACK_TOKEN) {
+  console.log("no SLACK TOKEN found");
   throw new Error("no slack token");
 }
+
 var spawnBot = controller.spawn({
   token: process.env.SLACK_TOKEN,
   stats_optout: true
@@ -80,16 +82,29 @@ start_rtm(spawnBot);
 
 let commands : BotListener[] = [];
 
-fs.readdir(__dirname + '/commands/custom/', (err, files) => {
+let directory =  process.env.SLACK_CUSTOM_DIR ? process.cwd() + process.env.SLACK_CUSTOM_DIR : __dirname + '/commands/custom/';
+console.log("getting custom commands from", directory);
+fs.readdir(directory , (err, files) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+
   files
   .filter(file => file.endsWith(".js"))
   .map(file => file.split(".")[0])
   .forEach(file => {
     console.log("Setting custom command...", file);
-    var custom = require('./commands/custom/' + file);
+    var custom = require(directory + file);
     try {
       var customCommand = new custom[file]();
-      commands.push(customCommand);
+      customCommand.setController(ControllerManager.getInstance().getController());
+
+      if (customCommand.type === "BotListener") {
+        commands.push(customCommand);
+      } else {
+        console.log(file, "(not BotListener)");
+      }
     } catch (e) {
       // skip if not a BotListener
       console.log("Problem importing custom command...", file, e);

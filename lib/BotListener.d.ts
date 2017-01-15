@@ -5,4 +5,6 @@ export declare abstract class BotListener {
     channels: String[];
     abstract start(): void;
     controller: any;
+    type: string;
+    setController(controller: any): void;
 }

@@ -7,4 +7,9 @@ export abstract class BotListener {
   channels: String[];
   abstract start(): void;
   controller = ControllerManager.getInstance().getController();
+  type = "BotListener";
+
+  setController(controller) {
+    this.controller = controller;
+  }
 }
