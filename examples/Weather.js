@@ -5,11 +5,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var weather = require("weather-js");
-var BotListener_1 = require("../../BotListener");
+var BotListener_1 = require("timbot2/lib/BotListener");
 var Weather = (function (_super) {
     __extends(Weather, _super);
     function Weather() {
-        var _this = _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.name = "weather";
         _this.desc = "Shows weather information";
         _this.hidden = false;

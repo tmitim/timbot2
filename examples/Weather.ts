@@ -1,5 +1,6 @@
 import weather = require('weather-js');
-import { BotListener } from "../../BotListener";
+import {BotListener} from "timbot2/lib/BotListener";
+
 
 export class Weather extends BotListener {
   name = "weather";

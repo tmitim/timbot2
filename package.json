@@ -1,6 +1,6 @@
 {
   "name": "timbot2",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Slack bot",
   "main": "./lib/timbot2.js",
   "scripts": {
@@ -24,9 +24,7 @@
   "dependencies": {
     "async": "^2.1.4",
     "botkit": "^0.4.7",
-    "dotenv": "^2.0.0",
-    "optimist": "^0.6.1",
-    "weather-js": "^1.0.2"
+    "dotenv": "^2.0.0"
   },
   "preferGlobal": "true",
   "bin": {

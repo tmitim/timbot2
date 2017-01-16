@@ -82,7 +82,7 @@ start_rtm(spawnBot);
 
 let commands : BotListener[] = [];
 
-let directory =  process.env.SLACK_CUSTOM_DIR ? process.cwd() + process.env.SLACK_CUSTOM_DIR : __dirname + '/commands/custom/';
+let directory = process.cwd() + process.env.SLACK_CUSTOM_DIR;
 console.log("getting custom commands from", directory);
 fs.readdir(directory , (err, files) => {
   if (err) {
@@ -110,6 +110,8 @@ fs.readdir(directory , (err, files) => {
       console.log("Problem importing custom command...", file, e);
     }
   });
+
+  files
 
   var help = new Help();
   help.setAvailableCommands(commands);

@@ -1,4 +1,4 @@
-import { BotListener } from "../../BotListener"
+import {BotListener} from "timbot2/lib/BotListener";
 
 export class Pizza extends BotListener {
   name = "pizza";

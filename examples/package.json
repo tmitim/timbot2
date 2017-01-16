@@ -1,0 +1,18 @@
+{
+  "name": "timbot2-custom-examples",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc"
+  },
+  "author": "tmitim",
+  "license": "MIT",
+  "dependencies": {
+    "timbot2": "file:///Users/tmitim_air/workspace/timbot2",
+    "weather-js": "^1.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^2.1.5"
+  }
+}
