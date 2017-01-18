@@ -1,7 +1,7 @@
 {
   "name": "timbot2",
-  "version": "0.0.3",
-  "description": "Slack bot",
+  "version": "0.1.0",
+  "description": "Timbot2 makes it easy to create a bot with custom actions for your slack channel.",
   "main": "./lib/timbot2.js",
   "scripts": {
     "start": "node ./bin/timbot2",
