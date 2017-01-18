@@ -114,8 +114,6 @@ fs.readdir(directory , (err, files) => {
     }
   });
 
-  files
-
   var help = new Help();
   help.setAvailableCommands(commands);
   commands.push(analysis);
