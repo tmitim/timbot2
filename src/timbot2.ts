@@ -83,8 +83,8 @@ start_rtm(spawnBot);
 let commands : BotListener[] = [];
 
 let directory = process.env.SLACK_CUSTOM_DIR ?
-  (process.cwd() + process.env.SLACK_CUSTOM_DIR) :
-  "/";
+  process.env.SLACK_CUSTOM_DIR :
+  (process.cwd() + "/");
 
 console.log("getting custom commands from", directory);
 fs.readdir(directory , (err, files) => {
