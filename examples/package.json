@@ -9,7 +9,7 @@
   "author": "tmitim",
   "license": "MIT",
   "dependencies": {
-    "timbot2": "file:///Users/tmitim_air/workspace/timbot2",
+    "timbot2": "^0.1.0",
     "weather-js": "^1.0.2"
   },
   "devDependencies": {
