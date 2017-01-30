@@ -86,6 +86,9 @@ export class Pizza extends BotListener {
 }
 ```
 
+### Note
+- Due to the botkit, timbot2 will only take action to the first message it "hears". So if two custom actions overlap, only the first action can be heard.
+
 ## Dependencies
 
 - [async](https://github.com/caolan/async): Higher-order functions and common patterns for asynchronous code
