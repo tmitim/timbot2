@@ -103,8 +103,12 @@ fs.readdir(directory , (err, files) => {
       var customCommand = new custom[file]();
       customCommand.setController(ControllerManager.getInstance().getController());
 
-      if (customCommand.type === "BotListener") {
-        commands.push(customCommand);
+      if (customCommand.type === "BotListener" && customCommand.isValid()) {
+        if (customCommand.active) {
+          commands.push(customCommand);
+        } else {
+          console.log("(not Active)");
+        }
       } else {
         console.log(file, "(not BotListener)");
       }

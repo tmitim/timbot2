@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": "tsc"
+    "compile": "tsc",
+    "start": "timbot2"
   },
   "author": "tmitim",
   "license": "MIT",
   "dependencies": {
-    "timbot2": "^0.1.0",
+    "timbot2": "..",
     "weather-js": "^1.0.2"
   },
   "devDependencies": {

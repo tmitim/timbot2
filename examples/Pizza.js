@@ -9,9 +9,10 @@ var Pizza = (function (_super) {
     __extends(Pizza, _super);
     function Pizza() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.name = "pizza";
-        _this.desc = "Yum, pizza";
+        _this.name = "Pizza";
+        _this.desc = "Mmmm, pizza";
         _this.hidden = true;
+        _this.active = true;
         _this.channels = ['direct_message', 'direct_mention', 'mention', 'ambient'];
         return _this;
     }
