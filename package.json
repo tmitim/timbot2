@@ -19,11 +19,11 @@
   "homepage": "https://github.com/tmitim/timbot2#readme",
   "devDependencies": {
     "@types/node": "^6.0.57",
-    "typescript": "^2.1.4"
+    "typescript": "^2.2.0"
   },
   "dependencies": {
     "async": "^2.1.4",
-    "botkit": "^0.4.7",
+    "botkit": "^0.4.10",
     "dotenv": "^2.0.0"
   },
   "keywords": [
