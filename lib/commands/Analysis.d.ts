@@ -3,6 +3,7 @@ export declare class Analysis extends BotListener {
     name: string;
     desc: string;
     hidden: boolean;
+    active: boolean;
     channels: string[];
     private timeRestarted;
     private startedOn;

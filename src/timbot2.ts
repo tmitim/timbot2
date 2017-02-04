@@ -120,10 +120,16 @@ fs.readdir(directory , (err, files) => {
 
   var help = new Help();
   help.setAvailableCommands(commands);
-  commands.push(analysis);
   commands.push(help);
+  commands.push(analysis);
 
-  commands.forEach(function(command) {
+  commands.filter(function(command) {
+    if (command.active) {
+      return command;
+    } else {
+      console.log(command.name + " (not active)");
+    }
+  }).forEach(function(command) {
     command.start();
   })
 });

@@ -3,6 +3,7 @@ export declare class Help extends BotListener {
     name: string;
     desc: string;
     hidden: boolean;
+    active: boolean;
     channels: string[];
     private commands;
     start(): void;

@@ -5,6 +5,7 @@ export class Help extends BotListener {
   name = "help";
   desc = "Shows this help menu";
   hidden = true;
+  active = process.env.HELP_COMMAND != 'off';
   channels = ['direct_message','direct_mention','mention'];
 
   private commands : BotListener[];
@@ -43,7 +44,7 @@ export class Help extends BotListener {
           setTimeout(function() {
             bot.reply(message, commandString);
             callback(null, 2);
-          }, 100);
+          }, 500);
         }
       ], function(err, results) {
         if (err) console.log(err);

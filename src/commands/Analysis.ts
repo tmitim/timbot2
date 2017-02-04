@@ -5,6 +5,7 @@ export class Analysis extends BotListener {
   name = "analysis";
   desc = "Shows my analysis";
   hidden = false;
+  active = process.env.ANALYSIS_COMMAND != "off";
   channels = ['direct_message','direct_mention','mention'];
 
   private timeRestarted;
