@@ -13,7 +13,7 @@ export abstract class BotListener {
     this.controller = controller;
   }
 
-  isValid() {
+  isValid() : boolean {
     var valid = true;
     if (!this.name) {
       console.log("BotListener needs a name");
@@ -25,5 +25,11 @@ export abstract class BotListener {
     }
 
     return valid;
+  }
+
+  reply(bot, message, slackMessage) {
+    bot.reply(message, slackMessage);
+
+    console.log(new Date().toUTCString() + ": " + slackMessage);
   }
 }

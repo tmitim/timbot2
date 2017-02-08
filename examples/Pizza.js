@@ -18,8 +18,10 @@ var Pizza = (function (_super) {
     }
     Pizza.prototype.start = function () {
         this.controller.hears('pizza', this.channels, function (bot, message) {
-            bot.reply(message, "pizza? I want pizza.");
-        });
+            // use from BotListener
+            this.reply(bot, message, "pizza? I want pizza");
+            // to use reply
+        }.bind(this));
     };
     return Pizza;
 }(BotListener_1.BotListener));
