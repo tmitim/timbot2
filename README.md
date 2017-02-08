@@ -47,8 +47,9 @@ export class Pizza extends BotListener {
   hidden = true;
 
   // not required, defaults to true
-  // if set to false, does run
-  // in the custom listener, possibly use it in combo with env variable.
+  // if set to false, does not run
+  // in the custom listener
+  // possibly use it in combo with env variable.
   active = true;
 
   // not extended from BotListener variable
@@ -57,8 +58,11 @@ export class Pizza extends BotListener {
   // required function
   start() {
     this.controller.hears('pizza', this.channels, function(bot,message) {
-      bot.reply(message, "pizza? I want pizza.");
-    });
+      // use from BotListener
+      this.reply(bot, message, "pizza? I want pizza");
+
+    // to use reply
+    }.bind(this));
   }
 }
 ```
@@ -76,7 +80,7 @@ export class Pizza extends BotListener {
   "author": "tmitim",
   "license": "MIT",
   "dependencies": {
-    "timbot2": "^0.1.0
+    "timbot2": "^0.1.2
   },
   "devDependencies": {
     "typescript": "^2.1.5"
