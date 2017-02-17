@@ -9,5 +9,5 @@ export declare abstract class BotListener {
     setController(controller: any): void;
     isValid(): boolean;
     reply(bot: any, message: any, slackMessage: any): void;
-    replyCode(bot: any, message: any, slackMessage: any): void;
+    replyCode(bot: any, message: any, slackMessage: String): void;
 }

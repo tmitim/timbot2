@@ -13,10 +13,13 @@ export class Help extends BotListener {
   start() {
     var help = this;
     help.controller.hears('help', help.channels, function(bot,message) {
-      var commandString = "```\n";
+      var commandString = "";
       help.commands
       .filter(function(cmd) {
         return (!cmd.hidden || message.text.indexOf("-h") != -1);
+      })
+      .filter(function(cmd) {
+        return cmd.active;
       })
       .sort(function (a, b) {
         var commandA = a.name.toUpperCase();
@@ -33,22 +36,7 @@ export class Help extends BotListener {
         commandString += help.padColumn(cmd.name, 18) + cmd.desc + "\n";
       })
 
-      commandString += "```";
-
-      async.series([
-        function(callback) {
-          bot.reply(message, "Here are my available commands - ");
-          callback(null, 1);
-        },
-        function(callback) {
-          setTimeout(function() {
-            bot.reply(message, commandString);
-            callback(null, 2);
-          }, 500);
-        }
-      ], function(err, results) {
-        if (err) console.log(err);
-      });
+      help.replyCode(bot, message, commandString);
     });
   }
 
