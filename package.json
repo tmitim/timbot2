@@ -22,7 +22,6 @@
     "typescript": "^2.2.0"
   },
   "dependencies": {
-    "async": "^2.1.4",
     "botkit": "^0.4.10",
     "dotenv": "^2.0.0"
   },

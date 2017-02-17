@@ -1,5 +1,4 @@
 import { BotListener } from "../BotListener";
-import async = require('async');
 
 export class Analysis extends BotListener {
   name = "analysis";
@@ -17,30 +16,13 @@ export class Analysis extends BotListener {
     analysis.controller.hears('analysis', analysis.channels, function(bot,message) {
 
       var messages =[];
-      messages.push(function(callback) {
-        bot.reply(message, analysis.getStarted())
-        callback(null, 1);
-      });
-      messages.push( function(callback) {
-        setTimeout(function() {
-          bot.reply(message, analysis.getRestarts())
-          callback(null, 2)
-        }, 100);
-      });
+      messages.push(analysis.getStarted());
+      messages.push(analysis.getRestarts());
       if (analysis.timeRestarted) {
-        messages.push(function (callback) {
-          setTimeout(function() {
-            bot.reply(message, analysis.getLastRestart())
-            callback(null, 3)
-          }, 100);
-        });
+        messages.push(analysis.getLastRestart());
       }
 
-      async.series(messages, function(err, results) {
-        if(err) {
-          console.log(err);
-        }
-      });
+      analysis.replyCode(bot, message, messages.join("\n"));
     });
   }
 

@@ -1,5 +1,4 @@
 import { BotListener } from "../BotListener";
-import async = require('async');
 
 export class Help extends BotListener {
   name = "help";

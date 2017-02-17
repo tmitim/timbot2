@@ -106,7 +106,6 @@ export class Pizza extends BotListener {
 
 ## Dependencies
 
-- [async](https://github.com/caolan/async): Higher-order functions and common patterns for asynchronous code
 - [botkit](https://github.com/howdyai/botkit): Building blocks for Building Bots
 - [dotenv](https://github.com/motdotla/dotenv): Loads environment variables from .env file
 
