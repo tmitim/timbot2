@@ -32,4 +32,10 @@ export abstract class BotListener {
 
     console.log(new Date().toUTCString() + ": " + slackMessage);
   }
+
+  replyCode(bot, message, slackMessage) {
+    bot.reply(message, "```" + slackMessage + "```");
+
+    console.log(new Date().toUTCString() + ": " + slackMessage);
+  }
 }
