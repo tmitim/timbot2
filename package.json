@@ -18,12 +18,12 @@
   },
   "homepage": "https://github.com/tmitim/timbot2#readme",
   "devDependencies": {
-    "@types/node": "^6.0.57",
+    "@types/node": "^7.0.5",
     "typescript": "^2.2.0"
   },
   "dependencies": {
-    "botkit": "^0.4.10",
-    "dotenv": "^2.0.0"
+    "botkit": "^0.5.0",
+    "dotenv": "^4.0.0"
   },
   "keywords": [
     "bots",
