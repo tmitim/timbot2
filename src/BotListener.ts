@@ -29,14 +29,26 @@ export abstract class BotListener {
 
   reply(bot, message, slackMessage) {
     bot.reply(message, slackMessage);
-
-    console.log(new Date().toUTCString() + ": " + slackMessage);
+    this.consoleLog(bot, message, slackMessage);
   }
 
   replyCode(bot, message, slackMessage : String) {
     if (slackMessage.length > 0) {
       bot.reply(message, "```" + slackMessage + "```");
+      this.consoleLog(bot, message, slackMessage);
     }
-    console.log(new Date().toUTCString() + ": " + slackMessage);
+  }
+
+  consoleLog(bot, message, slackMessage) {
+    bot.api.users.info({user: message.user}, (error, response) => {
+      if (response) {
+        let {name, real_name} = response.user;
+        console.log(new Date().toUTCString() + ":", name + ":", message.text);
+      } else {
+        console.log(new Date().toUTCString() + ":", message.user, message.text);
+      }
+
+      console.log(slackMessage);
+    })
   }
 }

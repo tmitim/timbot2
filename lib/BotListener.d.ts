@@ -10,4 +10,5 @@ export declare abstract class BotListener {
     isValid(): boolean;
     reply(bot: any, message: any, slackMessage: any): void;
     replyCode(bot: any, message: any, slackMessage: String): void;
+    consoleLog(bot: any, message: any, slackMessage: any): void;
 }
