@@ -57,12 +57,18 @@ export class Pizza extends BotListener {
 
   // required function
   start() {
-    this.controller.hears('pizza', this.channels, function(bot,message) {
-      // use from BotListener
-      this.reply(bot, message, "pizza? I want pizza");
+
+    var Pizza = this;
+    Pizza.controller.hears('pizza', this.channels, function(bot,message) {
+
+      // reply
+      Pizza.reply(bot, message, "pizza? I want pizza");
+      // reply as code
+      Pizza.replyCode(bot, message, "pizza" I want pizza");
+
 
     // to use reply
-    }.bind(this));
+    });
   }
 }
 ```
