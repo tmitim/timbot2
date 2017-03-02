@@ -1,0 +1,33 @@
+import {BotListener} from "timbot2/lib/BotListener";
+
+export class Pizza extends BotListener {
+  name = "pizza"; //required
+  desc = "Yum, pizza"; // required
+
+  // not required; defaults to false
+  // if set true, doesn't show up in help
+  hidden = true;
+
+  // not required, defaults to true
+  // if set to false, does not run
+  // in the custom listener
+  // possibly use it in combo with env variable.
+  active = true;
+
+  // not extended from BotListener variable
+  channels = ['direct_message','direct_mention','mention','ambient'];
+
+  // required function
+  start() {
+
+    var Pizza = this;
+    Pizza.controller.hears('pizza', this.channels, function(bot,message) {
+
+      // reply
+      // Pizza.reply(bot, message, "pizza? I want pizza");
+
+      // use to make the bot reply as code
+      // Pizza.replyCode(bot, message, "pizza" I want pizza");
+    });
+  }
+}
