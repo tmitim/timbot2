@@ -28,25 +28,21 @@ var spawnBot = controller.spawn({
   stats_optout: true
 });
 
-function start_rtm(spawnBot) {
-  spawnBot.startRTM(function(err,bot,payload) {
-    console.log("Starting slack bot...");
+function start_rtm() {
+  spawnBot.startRTM((err,bot,payload) => {
     if (err) {
       console.log("Error while starting bot", err);
       setTimeout(function() {
-        spawnBot = controller.spawn({
-          token: process.env.SLACK_TOKEN,
-          stats_optout: true
-        });
 
         analysis.incrementRestarts();
         analysis.setRestartToNow();
 
-        start_rtm(spawnBot);
+        start_rtm();
       }, 30000);
       return;
     }
-    //
+
+    console.log("Slackbot started");
     // // for debugging
     // setTimeout(function() {
     //   console.log("closing bot...");
@@ -56,29 +52,16 @@ function start_rtm(spawnBot) {
 }
 
 // restart slackbot if broken
-controller.on('rtm_close', function(bot, err) {
-  if (err) {
-    console.log("Error while restarting bot", err);
-    spawnBot = controller.spawn({
-      token: process.env.SLACK_TOKEN,
-      stats_optout: true
-    });
-
-    analysis.incrementRestarts();
-    analysis.setRestartToNow();
-
-    start_rtm(spawnBot);
-    return;
-  }
+controller.on('rtm_close', (bot, message) => {
 
   analysis.incrementRestarts();
   analysis.setRestartToNow();
   console.log("Attempting to restart rtm");
 
-  start_rtm(bot);
+  start_rtm();
 });
 
-start_rtm(spawnBot);
+start_rtm();
 
 let commands : BotListener[] = [];
 
