@@ -1,8 +1,6 @@
-'use strict'
 import dotenv = require('dotenv');
 import Botkit = require('botkit');
 dotenv.config({silent: true});
-import async = require('async');
 import { Analysis } from "./commands/Analysis";
 import { Help } from "./commands/Help";
 import { BotListener } from "./BotListener";
