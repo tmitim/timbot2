@@ -55,6 +55,10 @@ controller.on('rtm_close', (bot, message) => {
   analysis.incrementRestarts();
   analysis.setRestartToNow();
   console.log("Attempting to restart rtm");
+});
+
+controller.on('rtm_reconnect_failed',function(bot) {
+  console.log("rtm reconnect failed. Retrying manually");
 
   start_rtm();
 });
