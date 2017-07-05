@@ -10,12 +10,14 @@ export class Analysis extends BotListener {
   private timeRestarted;
   private startedOn = Date.now();
   private restarts = 0;
+  private botName = process.env.BOT_NAME || Math.random().toString(36).slice(2);
 
   start() {
     var analysis = this;
     analysis.controller.hears('analysis', analysis.channels, function(bot,message) {
 
       var messages =[];
+      messages.push(analysis.getName());
       messages.push(analysis.getStarted());
       messages.push(analysis.getRestarts());
       if (analysis.timeRestarted) {
@@ -32,6 +34,10 @@ export class Analysis extends BotListener {
 
   setRestartToNow() {
     this.timeRestarted = Date.now();
+  }
+
+  private getName() {
+    return "Hi, I'm " + this.botName + ".";
   }
 
   private getRestarts() {

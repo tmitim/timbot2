@@ -8,9 +8,11 @@ export declare class Analysis extends BotListener {
     private timeRestarted;
     private startedOn;
     private restarts;
+    private botName;
     start(): void;
     incrementRestarts(): void;
     setRestartToNow(): void;
+    private getName();
     private getRestarts();
     private getStarted();
     private getLastRestart();
